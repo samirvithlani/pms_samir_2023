@@ -1,0 +1,47 @@
+{% extends './Base.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    {% block content %}
+    <h2><strong>Project Team</strong></h2>
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>ROLE</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody class="table-border-bottom-0">
+            
+            {% for team in project_team_list %}
+            <tr>
+              <td>
+                <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                <strong>{{team.Project.title}}</strong>
+              </td>
+              <td>{{team.user.username}}</td>
+              <td>{{team.project.technology}}</td>
+              <td><span class="badge bg-label-primary me-1">Active</span></td>
+            </tr>
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    {% endblock content %}
+        
+    
+</body>
+</html>

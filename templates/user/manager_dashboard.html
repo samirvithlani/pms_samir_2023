@@ -1,0 +1,110 @@
+{% extends './Base.html' %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../assets/img/favicon/favicon.ico"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link
+      rel="stylesheet"
+      href="{% static '/assets/vendor/fonts/boxicons.css' %}"
+    />
+
+    <!-- Core CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static '/assets/vendor/css/core.css'%}"
+      class="template-customizer-core-css"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static '/assets/vendor/css/theme-default.css'%}"
+      class="template-customizer-theme-css"
+    />
+
+    <link rel="stylesheet" href="{% static '/assets/vendor/css/demo.css'%}" />
+
+    <!-- Vendors CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static '/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css'%}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{% static '/assets/vendor/libs/apex-charts/apex-charts.css'%}"
+    />
+
+    <!-- Page CSS -->
+  </head>
+
+  <body>
+    {% block content %}
+    <div class="card">
+      <h5 class="card-header">Projects</h5>
+      <h5 class="card-header">
+        <a href="{% url 'create_project' %}" class="btn btn-primary">Create</a>
+      </h5>
+      <div class="table-responsive text-nowrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>DESCRIPTION</th>
+              <th>Technology</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody class="table-border-bottom-0">
+            {% for project in projects %}
+            <tr>
+              <td>
+                <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                <strong>{{project.title}}</strong>
+              </td>
+              <td>{{project.description}}</td>
+              <td>{{project.technology}}</td>
+              <td><span class="badge bg-label-primary me-1">Active</span></td>
+              <td>
+                <div class="dropdown">
+                  <a class="dropdown-item" href="#"
+                    ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                  >
+                  <a class="dropdown-item" href="#"
+                    ><i class="bx bx-trash me-1"></i> Delete</a
+                  >
+                </div>
+              </td>
+            </tr>
+
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endblock content %} {% comment %}
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <div class="content-wrapper">
+          <div class="container-xxl flex-grow-1 container-p-y">
+            <h1>ok</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endcomment %}
+  </body>
+</html>

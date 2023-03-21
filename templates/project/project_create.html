@@ -1,0 +1,70 @@
+{% extends './Base.html' %} {%load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% block content %} 
+    <div class="row">
+      <div class="col-xl">
+        <div class="card mb-4">
+          <div
+            class="card-header d-flex justify-content-between align-items-center"
+          >
+            <h5 class="mb-0">Basic with Icons</h5>
+            <small class="text-muted float-end">Merged input group</small>
+          </div>
+          <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+              <div class="mb-3">
+                <label class="form-label" for="basic-icon-default-fullname"
+                  >Full Name</label
+                >
+                <div class="input-group input-group-merge">
+                  <span
+                    id="basic-icon-default-fullname2"
+                    class="input-group-text"
+                    ><i class="bx bx-user"></i
+                  ></span>
+                  {% comment %} <input
+                    type="text"
+                    class="form-control"
+                    id="basic-icon-default-fullname"
+                    placeholder="John Doe"
+                    aria-label="John Doe"
+                    aria-describedby="basic-icon-default-fullname2"
+                  /> {% endcomment %}
+                  <div
+                  class="form-control"
+                    id="basic-icon-default-fullname"
+                    placeholder="John Doe"
+                    aria-label="John Doe"
+                    aria-describedby="basic-icon-default-fullname2">
+                  {{form.title | as_crispy_field}}
+                  {{form.description | as_crispy_field}}
+                  {{form.technology | as_crispy_field}}
+                  {{form.estimated_time | as_crispy_field}}
+                  {{form.start_date | as_crispy_field}}
+                  {{form.completion_date | as_crispy_field}}
+
+                  
+                  
+                  </div>
+                </div>
+              
+              </div>
+              <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock content %}
+  </body>
+</html>
