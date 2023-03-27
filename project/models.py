@@ -22,4 +22,22 @@ class ProjectTeam(models.Model):
     
     class Meta:
         db_table = 'project_team'
-           
+
+class ProjectModule(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    moduleName = models.CharField(max_length=100)
+    description = models.TextField()
+    estimeted_hours = models.IntegerField()
+    status = models.CharField(max_length=100)
+    startDate = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'project_module'
+    
+    def __str__(self):
+        return self.moduleName
+
+
+                   

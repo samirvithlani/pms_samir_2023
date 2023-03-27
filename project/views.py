@@ -50,6 +50,7 @@ class ProjectDeleteView(DeleteView):
     success_url = '/project/list_project/'    
     
 class Create_Project_team(CreateView):
+    model = ProjectTeam
     form_class =ProjectTeamCreationForm
     template_name = 'project/project_team_create.html'
     success_url = '/project/list_project/'
@@ -66,8 +67,23 @@ class ProjectTeamByProject(ListView):
     
     def get_queryset(self):
         return super().get_queryset().filter(Project_id=self.kwargs['pk'])    
+
+    
+class CreateProjectModule(CreateView):
+    model = ProjectModule
+    form_class = CreateProjectModuleForm
+    template_name = 'project/project_module_create.html'
+    success_url = '/project/list_project_module/'
+    
+        
+
+class ProjectModuleListByProject(ListView):
+    model = ProjectModule
+    template_name = 'project/project_module_list.html'
+    context_object_name = 'project_module_list'
     
     
-    
+    def get_queryset(self):
+        return super().get_queryset().filter(project_id=self.kwargs['pk'])    
     
         

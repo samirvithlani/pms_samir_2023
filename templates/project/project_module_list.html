@@ -12,28 +12,30 @@
     
     {% block content %}
     <h2><strong>Project Team</strong></h2>
-    <a href="{% url 'create_project_team' %}" class="btn btn-primary">Add Developer</a>
+    <a href="{% url 'create_project_module' %}" class="btn btn-primary">Add MODULE</a>
     <div class="table-responsive text-nowrap">
         <table class="table">
           <thead>
             <tr>
-              <th>Project</th>
-              <th>ROLE</th>
+              <th>ModuleName</th>
+              <th>Description</th>
               <th>Status</th>
+              <th>Hours</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody class="table-border-bottom-0">
             
-            {% for team in project_team_list %}
+            {% for module in project_module_list %}
             <tr>
               <td>
                 <i class="fab fa-angular fa-lg text-danger me-3"></i>
-                <strong>{{team.Project.title}}</strong>
+                <strong>{{module.moduleName}}</strong>
               </td>
-              <td>{{team.user.is_manager}}</td>
-              <td>{{team.user.username}}</td>
-              <td>{{team.project.technology}}</td>
+              <td>{{module.description}}</td>
+              <td>{{module.status}}</td>
+              <td>{{module.estimeted_hours}}</td>
+              
               <td><span class="badge bg-label-primary me-1">Active</span></td>
             </tr>
 
