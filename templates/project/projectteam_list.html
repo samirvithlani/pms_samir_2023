@@ -12,7 +12,12 @@
     
     {% block content %}
     <h2><strong>Project Team</strong></h2>
+    {% comment %} <a href="{% url 'create_project_team' %}" class="btn btn-primary">Add Developer</a> {% endcomment %}
+    
     <a href="{% url 'create_project_team' %}" class="btn btn-primary">Add Developer</a>
+    get id from project_team_list
+    
+    
     <div class="table-responsive text-nowrap">
         <table class="table">
           <thead>

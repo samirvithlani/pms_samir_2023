@@ -10,6 +10,7 @@
   <body>
     {% block content %}
 
+
     <div class="row">
       <!-- Order Statistics -->
       <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
@@ -61,19 +62,33 @@
                   class="apexcharts-canvas apexchartsabj9gr0i apexcharts-theme-light"
                   style="width: 130px; height: 137.55px"
                 >
-                  <svg
-                    id="SvgjsSvg1733"
-                    width="130"
-                    height="137.55"
-                    xmlns="http://www.w3.org/2000/svg"
-                    version="1.1"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    xmlns:svgjs="http://svgjs.dev"
-                    class="apexcharts-svg"
-                    xmlns:data="ApexChartsNS"
-                    transform="translate(0, 0)"
-                    style="background: transparent"
-                  >
+                
+                
+                <script>
+                  var config = {
+                    type: 'pie',
+                    data: {
+                      datasets: [{
+                        data: {{ data|safe }},
+                        backgroundColor: [
+                          '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
+                        ],
+                        label: 'Population'
+                      }],
+                      labels: {{ labels|safe }}
+                    },
+                    options: {
+                      responsive: true
+                    }
+                  };
+              
+                  window.onload = function() {
+                    var ctx = document.getElementById('pie-chart').getContext('2d');
+                    window.myPie = new Chart(ctx, config);
+                  };
+              
+                </script>
+             
                     <g
                       id="SvgjsG1735"
                       class="apexcharts-inner apexcharts-graphical"
@@ -1619,6 +1634,9 @@
          
         </div>
       </div>
+    </div>
+    <div height="200" width="200">
+    <canvas id="pie-chart" width="130px" height="137.55px"></canvas>
     </div>
     {% endblock content %}
   </body>

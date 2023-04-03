@@ -36,9 +36,20 @@ class ProjectDetailView(DetailView):
     template_name = 'project/project_detail.html'
     context_object_name = 'project_detail'
     
+    labels=[]
+    data =[]
+    project = Project.objects.all().values_list('title',flat=True)
+    time = Project.objects.all().values_list('estimated_time',flat=True)
+    for i in project:
+        labels.append(i)
+    for i in time:
+        data.append(i)
+    
+             
+    
     def get(self, request, *args, **kwargs):
         team = ProjectTeam.objects.filter(Project_id=self.kwargs['pk'])
-        return render(request, self.template_name, {'project_detail': self.get_object(),'team':team})
+        return render(request, self.template_name, {'project_detail': self.get_object(),'team':team,'labels':self.labels,'data':self.data})
     
       
     
@@ -48,7 +59,17 @@ class ProjectDeleteView(DeleteView):
         return self.delete(request, *args, **kwargs)
     
     success_url = '/project/list_project/'    
+   
+class ProjectTeamCreationView(CreateView):
+    model = ProjectTeam
+    form_class =ProjectTeamCreationForm
+    template_name = 'project/project_team_create.html'
+    success_url = '/project/list_project/'
     
+    def form_valid(self, form):
+        return super().form_valid(form)
+    
+        
 class Create_Project_team(CreateView):
     model = ProjectTeam
     form_class =ProjectTeamCreationForm
