@@ -1,5 +1,5 @@
 {% extends './Base.html' %}
-
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
 </head>
 <body>
     
-    {% block content %}
+    
     <h2><strong>Project Team</strong></h2>
     {% comment %} <a href="{% url 'create_project_team' %}" class="btn btn-primary">Add Developer</a> {% endcomment %}
     
@@ -47,8 +47,9 @@
         </table>
       </div>
 
-    {% endblock content %}
+    
         
     
 </body>
 </html>
+{% endblock content %}

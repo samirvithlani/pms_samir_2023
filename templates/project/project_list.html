@@ -1,5 +1,4 @@
-{% extends './Base.html' %} {%load crispy_forms_tags %}
-
+{% extends './Base.html' %} {%load crispy_forms_tags %} {% block content %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,17 +6,91 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   </head>
+  <style>
+    #toaster {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      border-radius: 5px;
+      display: none;
+    }
+  </style>
   <body>
-    {% block content %}
+    <script>
+      function showToaster(message) {
+        var toaster = document.getElementById("toaster");
+        toaster.innerHTML = message;
+        toaster.style.display = "block";
+        setTimeout(function () {
+          toaster.style.display = "none";
+        }, 1800); // hide after 5 seconds
+      }
+    </script>
+
+   
+
 
     <div class="card">
       <h5 class="card-header">Projects</h5>
+      <div id="toaster"></div>
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" />
+      <table id ="myTable">
+        <thead>
+          <tr>
+            <td></td>
+          </tr>
+
+      </table>
       {% comment %}
       <h5 class="card-header">
         <a href="{% url 'create_project' %}" class="btn btn-primary">Create</a>
       </h5>
       {% endcomment %}
+      <script type="text/javascript">
+        function myFunction() {
+          var input = document.getElementById("myInput").value;
+          console.log(input);
+          $.ajax({
+            type: "GET",
+            url: "/project/list_project/"
+            data:{
+              'input':input
+            }
+          });
+          
+        }
+  
+      </script>
+      <script type="text/javascript">
+        function DeleteData(id) {
+          if (confirm("Are you sure you want to delete?")) {
+            $.ajax({
+              type: "GET",
+              url: "/project/delete_project/" + id,
+              success: function (data) {
+                console.log(data);
+
+                //alert("Deleted successfully");
+                showToaster("Deleted successfully");
+                setTimeout(() => {
+                  location.reload();
+                }, 1000);
+              },
+              error: function (data) {
+                console.log(data);
+                alert("Error");
+              },
+            });
+          }
+        }
+      </script>
       <div class="table-responsive text-nowrap">
         <table class="table">
           <thead>
@@ -30,11 +103,13 @@
             </tr>
           </thead>
           <tbody class="table-border-bottom-0">
-            {% for project in project_list %}
+            {% for project in project %}
             <tr>
               <td>
                 <i class="fab fa-angular fa-lg text-danger me-3"></i>
-                <a href="{% url 'detail_project' project.id %}"><strong>{{project.title}}</strong></a>
+                <a href="{% url 'detail_project' project.id %}"
+                  ><strong>{{project.title}}</strong></a
+                >
                 <a
                   href="{% url 'project_team_list1' project.id %}"
                   class="btn btn-sm btn-outline-success ms-3"
@@ -56,6 +131,13 @@
                     href="{% url 'delete_project' project.id %}"
                     ><i class="bx bx-trash me-1"></i> Delete</a
                   >
+                  <button
+                    onclick="DeleteData({{project.id}})"
+                    class="dropdown-item"
+                  >
+                    <i class="bx bx-trash me-1"></i>
+                  </button>
+
                   <a
                     class="dropdown-item"
                     href="{% url 'detail_project' project.id %}"
@@ -70,6 +152,6 @@
         </table>
       </div>
     </div>
-    {% endblock content %}
   </body>
 </html>
+{% endblock content %}

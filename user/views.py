@@ -46,10 +46,21 @@ class UserLoginView(LoginView):
             else:
                 return '/user/developer/dashboard'
 
-class ManagerDashboardView(ListView):            
-    
+class ManagerDashboardView(ListView): 
+            
     def get(self, request, *args, **kwargs):
         project = Project.objects.all().values()
+        sort_by = self.request.GET.get('sort_by', 'title')
+        direction = self.request.GET.get('direction', 'asc')
+        print(".....",sort_by)
+        print(".....",direction)
+        if direction == 'asc':
+            project = project.order_by(sort_by)
+        elif direction == 'desc':
+            project = project.order_by(f'-{sort_by}')
+        
+
+        
         
         return render(request, 'user/manager_dashboard.html',{
             'projects':project,

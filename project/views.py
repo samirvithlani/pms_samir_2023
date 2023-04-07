@@ -10,8 +10,6 @@ class ProjectCreationView(CreateView):
     model = Project
     template_name = 'project/project_create.html'
     success_url = '/project/list_project/'
-    
-    
     def form_valid(self, form):
         return super().form_valid(form)
     
@@ -21,8 +19,17 @@ class ProjectListView(ListView):
     template_name = 'project/project_list.html'
     context_object_name = 'project_list'
     
-    def get_queryset(self):
-        return super().get_queryset()    
+    def get(self, request, *args, **kwargs):
+        print("called....")
+        input = request.GET.get('input')
+        print(input)
+        project = Project.objects.all()
+        if input:
+            project = project.filter(title__icontains=input)
+                
+        return render(request, self.template_name, {'project':project})
+    
+    
     
 
 class ProjectUpdateView(UpdateView):
@@ -107,4 +114,8 @@ class ProjectModuleListByProject(ListView):
     def get_queryset(self):
         return super().get_queryset().filter(project_id=self.kwargs['pk'])    
     
-        
+
+
+    
+    
+            
