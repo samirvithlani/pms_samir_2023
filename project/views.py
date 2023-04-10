@@ -23,15 +23,16 @@ class ProjectListView(ListView):
         print("called....")
         input = request.GET.get('input')
         print(input)
-        project = Project.objects.all()
+        project=[]
         if input:
-            project = project.filter(title__icontains=input)
-                
-        return render(request, self.template_name, {'project':project})
+            project = Project.objects.filter(title__icontains=input)
+            print(project)
+            return render(request, self.template_name, {'project':project})
+        else:
+            project = Project.objects.all()    
+            return render(request, self.template_name, {'project':project})
     
     
-    
-
 class ProjectUpdateView(UpdateView):
     model = Project
     form_class = ProjectCreationForm

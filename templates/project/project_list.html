@@ -2,6 +2,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      function searchFromProject(){
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = "";
+            } else {
+              tr[i].style.display = "none";
+            }
+          }
+        }
+      }
+
+    </script>
+   
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,6 +45,7 @@
     }
   </style>
   <body>
+    
     <script>
       function showToaster(message) {
         var toaster = document.getElementById("toaster");
@@ -40,34 +63,14 @@
     <div class="card">
       <h5 class="card-header">Projects</h5>
       <div id="toaster"></div>
-      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name" />
-      <table id ="myTable">
-        <thead>
-          <tr>
-            <td></td>
-          </tr>
-
-      </table>
+      <input type="text" id="myInput" onkeyup="searchFromProject()" placeholder="Search for names.." title="Type in a name" />
+     
       {% comment %}
       <h5 class="card-header">
         <a href="{% url 'create_project' %}" class="btn btn-primary">Create</a>
       </h5>
       {% endcomment %}
-      <script type="text/javascript">
-        function myFunction() {
-          var input = document.getElementById("myInput").value;
-          console.log(input);
-          $.ajax({
-            type: "GET",
-            url: "/project/list_project/"
-            data:{
-              'input':input
-            }
-          });
-          
-        }
-  
-      </script>
+      
       <script type="text/javascript">
         function DeleteData(id) {
           if (confirm("Are you sure you want to delete?")) {
@@ -92,7 +95,7 @@
         }
       </script>
       <div class="table-responsive text-nowrap">
-        <table class="table">
+        <table class="table" id="myTable">
           <thead>
             <tr>
               <th>Project</th>
