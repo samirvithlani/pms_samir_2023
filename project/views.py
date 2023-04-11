@@ -52,12 +52,14 @@ class ProjectDetailView(DetailView):
         labels.append(i)
     for i in time:
         data.append(i)
-    
-             
-    
+              
     def get(self, request, *args, **kwargs):
         team = ProjectTeam.objects.filter(Project_id=self.kwargs['pk'])
-        return render(request, self.template_name, {'project_detail': self.get_object(),'team':team,'labels':self.labels,'data':self.data})
+        module = ProjectModule.objects.filter(project_id=self.kwargs['pk']).values()
+        print("........",module)
+        return render(request, self.template_name, {'project_detail': self.get_object(),'team':team,'labels':self.labels,'data':self.data,'module':module})
+
+    
     
       
     
@@ -117,6 +119,28 @@ class ProjectModuleListByProject(ListView):
     
 
 
+class CreateProjectTaskView(CreateView):
+    model = ProjectTask
+    form_class = CreateProjectTaskForm
+    template_name = 'project/project_task_create.html'
+    success_url = '/project/list_project_task/'    
+    
+
+
+class ModuleDetailView(DetailView):
+    model = ProjectModule
+    template_name = 'project/project_module_detail.html' 
     
     
-            
+    def get(self, request, *args, **kwargs):
+        module = ProjectModule.objects.filter(id=self.kwargs['pk']).values()
+        projectTask = ProjectTask.objects.filter(module_id=self.kwargs['pk']).values()
+        print("........",projectTask)
+        print("........",module)
+        return render(request, self.template_name, {'module_detail': module,'projectTask':projectTask})
+    
+class CreateProjectTaskView(CreateView):
+    model = ProjectTask
+    form_class = CreateProjectTaskForm
+    template_name = 'project/project_task_create.html'
+    success_url = '/project/list_project_task/'           

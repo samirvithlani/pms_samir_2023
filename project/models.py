@@ -39,5 +39,21 @@ class ProjectModule(models.Model):
     def __str__(self):
         return self.moduleName
 
+class ProjectTask(models.Model):
+    module = models.ForeignKey(ProjectModule, on_delete=models.CASCADE)
+    taskName = models.CharField(max_length=100)
+    description = models.TextField()
+    estimeted_hours = models.IntegerField()
+    status = models.CharField(max_length=100)
+    startDate = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        db_table = 'project_task'
+    
+    def __str__(self):
+        return self.taskName    
+
 
                    

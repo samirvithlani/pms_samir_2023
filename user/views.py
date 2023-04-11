@@ -70,16 +70,20 @@ class ManagerDashboardView(ListView):
     
 class DeveloperDashBoardView(ListView):
     
-    model = User
-    
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
     
     
-    def get_queryset(self):
+     def get(self, request, *args, **kwargs):
+       
+        #get assigned project to loggedin developer
+        projects = Project.objects.all().values()
+        #user_tasks =
         
-        return super().get_queryset()
-    
-    template_name = 'user/developer_dashboard.html'
+
+        
+        
+        return render(request, 'user/developer_dashboard.html',{
+            
+        })   
+     template_name = 'user/developer_dashboard.html'
     
         

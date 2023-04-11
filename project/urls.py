@@ -14,4 +14,6 @@ urlpatterns = [
     path('list_project_team1/<int:pk>',ProjectTeamByProject.as_view(),name='project_team_list1'),
     path('create_project_module/',CreateProjectModule.as_view(),name='create_project_module'),
     path('list_project_module/<int:pk>',ProjectModuleListByProject.as_view(),name='project_module_list'),
+    path('detail_project_module/<int:pk>',ModuleDetailView.as_view(),name='detail_module'),
+    path('create_project_task/',CreateProjectTaskView.as_view(),name='create_project_task'),
 ]
