@@ -2,11 +2,19 @@
 from django import forms
 from .models import Project,ProjectTeam,ProjectModule,ProjectTask
 from user.models import User
+from django.forms.widgets import DateTimeInput
+from django.forms.widgets import DateInput
+
+
 
 class ProjectCreationForm(forms.ModelForm):
     class Meta:
         model =Project
         fields ='__all__'
+        widgets={
+            'start_date':DateInput(attrs={'type':'date'}),
+            'completion_date':DateInput(attrs={'type':'date'}),
+        }
         
     
 
